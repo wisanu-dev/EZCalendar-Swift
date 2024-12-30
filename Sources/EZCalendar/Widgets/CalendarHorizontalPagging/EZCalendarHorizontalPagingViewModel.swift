@@ -14,9 +14,7 @@ public class EZCalendarHorizontalPagingViewModel: ObservableObject {
     var endDate: Date
     var calendarMonths: [CalendarMonth] = []
     
-
-    
-    init(_ calendar: Calendar, startDate: Date, endDate: Date) {
+    public init(_ calendar: Calendar, startDate: Date, endDate: Date) {
         self.calendar = calendar
         self.startDate = startDate
         self.endDate = endDate
