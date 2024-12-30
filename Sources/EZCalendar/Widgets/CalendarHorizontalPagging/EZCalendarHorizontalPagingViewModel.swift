@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class EZCalendarHorizontalPagingViewModel: ObservableObject {
+public class EZCalendarHorizontalPagingViewModel: ObservableObject {
     
     var calendar: Calendar
     var startDate: Date

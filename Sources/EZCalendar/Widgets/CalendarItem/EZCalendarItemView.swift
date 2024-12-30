@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
+public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
     
     @ObservedObject var viewModel: EZCalendarItemViewModel
     
@@ -25,7 +25,7 @@ struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
         self.dayItemViewContent = dayItemViewContent
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
             ForEach(viewModel.calendarWeeks, id: \.self) { calendarWeek in
                 HStack(spacing: 0) {

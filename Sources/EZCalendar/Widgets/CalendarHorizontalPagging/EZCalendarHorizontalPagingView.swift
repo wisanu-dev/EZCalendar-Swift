@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
+public struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
 where WeekdayItemView: View, DayItemView: View {
     
     @Binding var currentMonth: Date
@@ -19,13 +19,13 @@ where WeekdayItemView: View, DayItemView: View {
 
     var isWeekdayScrollable: Bool = false
     
-    func weekdayScrollable(_ isWeekdayScrollable: Bool) -> Self {
+    public func weekdayScrollable(_ isWeekdayScrollable: Bool) -> Self {
         var view = self
         view.isWeekdayScrollable = isWeekdayScrollable
         return view
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(spacing: 0) {
             
             if !isWeekdayScrollable {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EZCalendarWeekdayHeaderView<WeekdayItemView>: View where WeekdayItemView: View {
+public struct EZCalendarWeekdayHeaderView<WeekdayItemView>: View where WeekdayItemView: View {
     
     var weekDayTitles: [String] = []
     var weekdayItemViewContent: (String) -> WeekdayItemView
@@ -26,7 +26,7 @@ struct EZCalendarWeekdayHeaderView<WeekdayItemView>: View where WeekdayItemView:
         self.weekdayItemViewContent = weekdayItemViewContent
     }
     
-    var body: some View {
+    public var body: some View {
         HStack(spacing: 0) {
             ForEach(weekDayTitles, id: \.self) { title in
                 weekdayItemViewContent(title)
