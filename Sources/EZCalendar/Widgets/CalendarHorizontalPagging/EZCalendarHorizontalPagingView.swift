@@ -10,14 +10,27 @@ import SwiftUI
 public struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
 where WeekdayItemView: View, DayItemView: View {
     
-    @Binding public var currentMonth: Date
-    @StateObject public var viewModel: EZCalendarHorizontalPagingViewModel
-    public var weekdayItemViewContent: (String) -> WeekdayItemView
-    public var dayItemViewContent: (CalendarDay) -> DayItemView
+    @Binding var currentMonth: Date
+    @StateObject var viewModel: EZCalendarHorizontalPagingViewModel
+    var weekdayItemViewContent: (String) -> WeekdayItemView
+    var dayItemViewContent: (CalendarDay) -> DayItemView
     
-    @State public var activeCalendarMonthUUID: String? = nil
+    @State var activeCalendarMonthUUID: String? = nil
+    
+    init(
+        currentMonth: Binding<Date>,
+        viewModel: StateObject<EZCalendarHorizontalPagingViewModel>,
+        weekdayItemViewContent: @escaping (String) -> WeekdayItemView,
+        dayItemViewContent: @escaping (CalendarDay) -> DayItemView
+    ) {
+        self._currentMonth = currentMonth
+        self._viewModel = viewModel
+        self.weekdayItemViewContent = weekdayItemViewContent
+        self.dayItemViewContent = dayItemViewContent
+        self.activeCalendarMonthUUID = activeCalendarMonthUUID
+    }
 
-    public var isWeekdayScrollable: Bool = false
+    var isWeekdayScrollable: Bool = false
     
     public func weekdayScrollable(_ isWeekdayScrollable: Bool) -> Self {
         var view = self
@@ -160,10 +173,12 @@ struct CalendarPagingView_Previews: PreviewProvider {
                         
                         EZCalendarHorizontalPagingView(
                             currentMonth: $viewModel.currentMonth,
-                            viewModel: EZCalendarHorizontalPagingViewModel(
-                                viewModel.calendar,
-                                startDate: viewModel.startDate,
-                                endDate: viewModel.endDate
+                            viewModel: StateObject(
+                                wrappedValue: EZCalendarHorizontalPagingViewModel(
+                                    viewModel.calendar,
+                                    startDate: viewModel.startDate,
+                                    endDate: viewModel.endDate
+                                )
                             )
                         ) { weekdayTitle in
                             Text(weekdayTitle)

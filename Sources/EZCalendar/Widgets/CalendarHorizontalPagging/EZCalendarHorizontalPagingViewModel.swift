@@ -19,6 +19,7 @@ public class EZCalendarHorizontalPagingViewModel: ObservableObject {
         self.startDate = startDate
         self.endDate = endDate
         self.generateCalendarMonths()
+        debugPrint("init CalendarPagingViewModel")
     }
     
     private func generateCalendarMonths() {
