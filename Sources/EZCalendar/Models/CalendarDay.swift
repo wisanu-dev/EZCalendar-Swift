@@ -8,9 +8,9 @@
 import Foundation
 
 public struct CalendarDay: Hashable {
-    let day: Int?
-    let date: Date?
-    let isCurrentMonth: Bool
+    public let day: Int?
+    public let date: Date?
+    public let isCurrentMonth: Bool
     
     init () {
         self.day = nil
