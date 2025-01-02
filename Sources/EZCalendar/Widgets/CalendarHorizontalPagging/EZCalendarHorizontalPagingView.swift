@@ -15,7 +15,7 @@ where WeekdayItemView: View, DayItemView: View {
     public var weekdayItemViewContent: (String) -> WeekdayItemView
     public var dayItemViewContent: (CalendarDay) -> DayItemView
     
-    @State private var activeCalendarMonthUUID: String? = nil
+    @State public var activeCalendarMonthUUID: String? = nil
 
     public var isWeekdayScrollable: Bool = false
     
