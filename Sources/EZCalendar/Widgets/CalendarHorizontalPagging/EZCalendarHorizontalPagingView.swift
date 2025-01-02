@@ -17,7 +17,7 @@ where WeekdayItemView: View, DayItemView: View {
     
     @State var activeCalendarMonthUUID: String? = nil
     
-    init(
+    public init(
         currentMonth: Binding<Date>,
         viewModel: StateObject<EZCalendarHorizontalPagingViewModel>,
         weekdayItemViewContent: @escaping (String) -> WeekdayItemView,
