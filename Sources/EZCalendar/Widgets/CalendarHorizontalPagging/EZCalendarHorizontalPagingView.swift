@@ -10,10 +10,10 @@ import SwiftUI
 public struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
 where WeekdayItemView: View, DayItemView: View {
     
-    @Binding var currentMonth: Date
-    @StateObject var viewModel: EZCalendarHorizontalPagingViewModel
-    var weekdayItemViewContent: (String) -> WeekdayItemView
-    var dayItemViewContent: (CalendarDay) -> DayItemView
+    @Binding public var currentMonth: Date
+    @StateObject public var viewModel: EZCalendarHorizontalPagingViewModel
+    public var weekdayItemViewContent: (String) -> WeekdayItemView
+    public var dayItemViewContent: (CalendarDay) -> DayItemView
     
     @State var activeCalendarMonthUUID: String? = nil
 

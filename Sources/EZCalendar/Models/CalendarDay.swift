@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal struct CalendarDay: Hashable {
+public struct CalendarDay: Hashable {
     let day: Int?
     let date: Date?
     let isCurrentMonth: Bool
@@ -24,11 +24,11 @@ internal struct CalendarDay: Hashable {
         self.isCurrentMonth = isCurrentMonth
     }
     
-    static func == (lhs: CalendarDay, rhs: CalendarDay) -> Bool {
+    public static func == (lhs: CalendarDay, rhs: CalendarDay) -> Bool {
         lhs.date == rhs.date
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(date)
     }
 }
