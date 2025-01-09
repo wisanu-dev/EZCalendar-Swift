@@ -88,7 +88,6 @@ class EZCalendarItemViewModel: ObservableObject {
     
     private func buildCalendarDayInCurrentMonth(_ dayOfMonth: Int) -> CalendarDay {
         CalendarDay(
-            day: dayOfMonth,
             date: Date.from(year: self.calendarMonth.year, month: self.calendarMonth.month, day: dayOfMonth, calendar: calendar)
         )
     }
@@ -100,7 +99,6 @@ class EZCalendarItemViewModel: ObservableObject {
         }
         
         return CalendarDay(
-            day: calendar.component(.day, from: dateOfPreviousMonth),
             date: dateOfPreviousMonth,
             isCurrentMonth: false
         )
@@ -112,7 +110,6 @@ class EZCalendarItemViewModel: ObservableObject {
         }
         
         return CalendarDay(
-            day: calendar.component(.day, from: dateOfNextMonth),
             date: dateOfNextMonth,
             isCurrentMonth: false
         )
