@@ -8,18 +8,16 @@
 import Foundation
 
 public struct CalendarDay: Hashable {
-    public let day: Int?
+
     public let date: Date?
     public let isCurrentMonth: Bool
     
     init () {
-        self.day = nil
         self.date = nil
         self.isCurrentMonth = false
     }
     
-    init(day: Int?, date: Date?, isCurrentMonth: Bool = true) {
-        self.day = day
+    init(date: Date?, isCurrentMonth: Bool = true) {
         self.date = date
         self.isCurrentMonth = isCurrentMonth
     }

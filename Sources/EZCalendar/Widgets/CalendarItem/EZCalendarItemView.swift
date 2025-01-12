@@ -47,7 +47,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                     CalendarMonth(month: 9, year: 2024),
                     calendar: .init(identifier: .gregorian)
                 ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
+                    Text(" \(calendarDay.date?.get(.day) ?? 0) ")
                         .foregroundStyle(
                             calendarDay.isCurrentMonth
                             ? Color.black
@@ -63,7 +63,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                     CalendarMonth(month: 10, year: 2024),
                     calendar: .init(identifier: .gregorian)
                 ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
+                    Text(" \(calendarDay.date?.get(.day) ?? 0) ")
                         .foregroundStyle(
                             calendarDay.isCurrentMonth
                             ? Color.black
@@ -79,7 +79,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                     CalendarMonth(month: 11, year: 2024),
                     calendar: .init(identifier: .gregorian)
                 ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
+                    Text(" \(calendarDay.date?.get(.day) ?? 0) ")
                         .foregroundStyle(
                             calendarDay.isCurrentMonth
                             ? Color.black
@@ -95,7 +95,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                     CalendarMonth(month: 12, year: 2024),
                     calendar: .init(identifier: .gregorian)
                 ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
+                    Text(" \(calendarDay.date?.get(.day) ?? 0) ")
                         .foregroundStyle(
                             calendarDay.isCurrentMonth
                             ? Color.black

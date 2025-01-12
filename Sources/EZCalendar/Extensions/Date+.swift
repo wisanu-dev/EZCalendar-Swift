@@ -76,4 +76,8 @@ extension Date {
         format.calendar = .init(identifier: .gregorian)
         return format.string(from: self)
     }
+    
+    internal func get(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        return calendar.component(component, from: self)
+    }
 }
