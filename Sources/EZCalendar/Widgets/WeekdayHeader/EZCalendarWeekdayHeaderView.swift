@@ -34,38 +34,3 @@ public struct EZCalendarWeekdayHeaderView<WeekdayItemView>: View where WeekdayIt
         }
     }
 }
-
-#Preview {
-    GeometryReader { proxy in
-        ScrollView {
-            VStack(spacing: 0) {
-                EZCalendarWeekdayHeaderView { title in
-                    Text(title)
-                        .foregroundStyle(Color.red)
-                        .bold()
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: 24
-                        )
-                }
-                
-                EZCalendarItemView(
-                    CalendarMonth(month: 12, year: 2024),
-                    calendar: .init(identifier: .gregorian)
-                ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
-                        .foregroundStyle(
-                            calendarDay.isCurrentMonth
-                            ? Color.black
-                            : Color.gray
-                        )
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: proxy.size.width / 7
-                        )
-                }
-            }
-        }
-    }
-    .padding(16)
-}

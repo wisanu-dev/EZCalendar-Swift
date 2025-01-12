@@ -7,8 +7,13 @@
 
 import Foundation
 
-internal struct CalendarMonth: Hashable {
-    let uuid = UUID().uuidString
-    let month: Int
-    let year: Int
+public struct CalendarMonth: Hashable {
+    public let uuid = UUID().uuidString
+    public let month: Int
+    public let year: Int
+    
+    public init(month: Int, year: Int) {
+        self.month = month
+        self.year = year
+    }
 }
