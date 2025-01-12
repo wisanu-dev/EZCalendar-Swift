@@ -13,7 +13,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
     
     var dayItemViewContent: (CalendarDay) -> DayItemView
     
-    init(
+    public init(
         _ calendarMonth: CalendarMonth,
         calendar: Calendar,
         @ViewBuilder dayItemViewContent: @escaping (CalendarDay) -> DayItemView
@@ -36,78 +36,4 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
             }
         }
     }
-}
-
-#Preview {
-    GeometryReader { proxy in
-        ScrollView {
-            VStack(spacing: 24) {
-                
-                EZCalendarItemView(
-                    CalendarMonth(month: 9, year: 2024),
-                    calendar: .init(identifier: .gregorian)
-                ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
-                        .foregroundStyle(
-                            calendarDay.isCurrentMonth
-                            ? Color.black
-                            : Color.gray
-                        )
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: proxy.size.width / 7
-                        )
-                }
-                
-                EZCalendarItemView(
-                    CalendarMonth(month: 10, year: 2024),
-                    calendar: .init(identifier: .gregorian)
-                ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
-                        .foregroundStyle(
-                            calendarDay.isCurrentMonth
-                            ? Color.black
-                            : Color.gray
-                        )
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: proxy.size.width / 7
-                        )
-                }
-                
-                EZCalendarItemView(
-                    CalendarMonth(month: 11, year: 2024),
-                    calendar: .init(identifier: .gregorian)
-                ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
-                        .foregroundStyle(
-                            calendarDay.isCurrentMonth
-                            ? Color.black
-                            : Color.gray
-                        )
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: proxy.size.width / 7
-                        )
-                }
-                
-                EZCalendarItemView(
-                    CalendarMonth(month: 12, year: 2024),
-                    calendar: .init(identifier: .gregorian)
-                ) { calendarDay in
-                    Text(" \(calendarDay.day ?? 0) ")
-                        .foregroundStyle(
-                            calendarDay.isCurrentMonth
-                            ? Color.black
-                            : Color.gray
-                        )
-                        .frame(
-                            width: proxy.size.width / 7,
-                            height: proxy.size.width / 7
-                        )
-                }
-            }
-        }
-    }
-    .padding(16)
 }

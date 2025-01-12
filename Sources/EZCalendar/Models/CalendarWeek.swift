@@ -7,20 +7,20 @@
 
 import Foundation
 
-internal struct CalendarWeek: Hashable {
-    var uuid: String
-    var calendarDays: [CalendarDay]
+public struct CalendarWeek: Hashable {
+    public var uuid: String
+    public var calendarDays: [CalendarDay]
     
-    init(calendarDays: [CalendarDay]) {
+    public init(calendarDays: [CalendarDay]) {
         self.uuid = UUID().uuidString
         self.calendarDays = calendarDays
     }
     
-    static func == (lhs: CalendarWeek, rhs: CalendarWeek) -> Bool {
+    public static func == (lhs: CalendarWeek, rhs: CalendarWeek) -> Bool {
         lhs.uuid == rhs.uuid
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
     }
 }
