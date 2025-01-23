@@ -26,13 +26,12 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
     }
     
     public var body: some View {
-        VStack(spacing: 0) {
-            ForEach(viewModel.calendarWeeks, id: \.self) { calendarWeek in
-                HStack(spacing: 0) {
-                    ForEach(calendarWeek.calendarDays, id: \.self) { calendarDay in
-                        dayItemViewContent(calendarDay)
-                    }
-                }
+        let columns = Array(repeating: GridItem(.flexible()), count: 7)
+        let days = viewModel.calendarWeeks.flatMap { $0.calendarDays }
+        
+        LazyVGrid(columns: columns) {
+            ForEach(days, id: \.self) { calendarDay in
+                dayItemViewContent(calendarDay)
             }
         }
     }
