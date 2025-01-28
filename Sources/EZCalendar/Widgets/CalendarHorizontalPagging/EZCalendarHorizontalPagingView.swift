@@ -59,6 +59,7 @@ where WeekdayItemView: View, DayItemView: View {
                                     calendar: viewModel.calendar,
                                     dayItemViewContent: dayItemViewContent
                                 )
+                                .gridLineColor(.red)
                             }
                             .id(calendarMonth.uuid)
                         }

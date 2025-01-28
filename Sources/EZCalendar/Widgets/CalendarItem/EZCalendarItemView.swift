@@ -12,6 +12,7 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
     @ObservedObject var viewModel: EZCalendarItemViewModel
     
     var dayItemViewContent: (CalendarDay) -> DayItemView
+    private var gridLineColor: Color? = nil
     
     public init(
         _ calendarMonth: CalendarMonth,
@@ -34,8 +35,20 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                 dayItemViewContent(calendarDay)
             }
         }
-        .padding(1)
-        .background(.red)
+        
+        if self.gridLineColor == nil {
+            gridView
+        } else {
+            gridView
+                .padding(1)
+                .background(self.gridLineColor)
+        }
+        
     }
     
+    func gridLineColor(_ color: Color) -> Self {
+        var newView = self
+        newView.gridLineColor = color
+        return newView
+    }
 }
