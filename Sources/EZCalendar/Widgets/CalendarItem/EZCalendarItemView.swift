@@ -26,13 +26,16 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
     }
     
     public var body: some View {
-        let columns = Array(repeating: GridItem(.flexible()), count: 7)
+        let columns = Array(repeating: GridItem(.flexible(), spacing: 1), count: 7)
         let days = viewModel.calendarWeeks.flatMap { $0.calendarDays }
         
-        LazyVGrid(columns: columns) {
+        LazyVGrid(columns: columns, spacing: 1) {
             ForEach(days, id: \.self) { calendarDay in
                 dayItemViewContent(calendarDay)
             }
         }
+        .padding(1)
+        .background(.red)
     }
+    
 }
