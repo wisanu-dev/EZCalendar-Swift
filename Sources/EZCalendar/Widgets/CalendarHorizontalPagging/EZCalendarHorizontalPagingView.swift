@@ -17,6 +17,8 @@ where WeekdayItemView: View, DayItemView: View {
     
     @State var activeCalendarMonthUUID: String? = nil
     
+    var gridLineColor: Color? = nil
+    
     public init(
         currentMonth: Binding<Date>,
         viewModel: StateObject<EZCalendarHorizontalPagingViewModel>,
@@ -59,6 +61,7 @@ where WeekdayItemView: View, DayItemView: View {
                                     calendar: viewModel.calendar,
                                     dayItemViewContent: dayItemViewContent
                                 )
+                                .gridLineColor(self.gridLineColor)
                             }
                             .id(calendarMonth.uuid)
                         }
@@ -94,5 +97,15 @@ where WeekdayItemView: View, DayItemView: View {
         .onAppear{
             activeCalendarMonthUUID = viewModel.getCalendarMonth(fromDate: currentMonth)?.uuid
         }
+    }
+    
+    public func gridLineColor(_ color: Color?) -> Self {
+        guard let color else {
+            return self
+        }
+        
+        var newView = self
+        newView.gridLineColor = color
+        return newView
     }
 }
