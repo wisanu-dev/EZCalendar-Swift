@@ -30,8 +30,10 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
         let columns = Array(repeating: GridItem(.flexible(), spacing: 1), count: 7)
         let days = viewModel.calendarWeeks.flatMap { $0.calendarDays }
         
-        LazyVGrid(columns: columns, spacing: 1) {
+        let gridView = LazyVGrid(columns: columns, spacing: 1) {
+//            let _ = print("🟢 item count | \(days.count)")
             ForEach(days, id: \.self) { calendarDay in
+//                let _ = print("day | \(calendarDay.date!)")
                 dayItemViewContent(calendarDay)
             }
         }
@@ -44,9 +46,23 @@ public struct EZCalendarItemView<DayItemView>: View where DayItemView: View {
                 .background(self.gridLineColor)
         }
         
+        
+//        VStack(spacing: 0) {
+//            ForEach(viewModel.calendarWeeks, id: \.self) { calendarWeek in
+//                HStack(spacing: 0) {
+//                    ForEach(calendarWeek.calendarDays, id: \.self) { calendarDay in
+//                        dayItemViewContent(calendarDay)
+//                    }
+//                }
+//            }
+//        }
     }
     
-    func gridLineColor(_ color: Color) -> Self {
+    func gridLineColor(_ color: Color?) -> Self {
+        guard let color else {
+            return self
+        }
+        
         var newView = self
         newView.gridLineColor = color
         return newView
