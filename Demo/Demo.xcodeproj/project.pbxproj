@@ -7,23 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A7F2373D2D33B30700682D21 /* EZCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F2373C2D33B30700682D21 /* EZCalendar.framework */; };
-		A7F2373E2D33B30700682D21 /* EZCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7F2373C2D33B30700682D21 /* EZCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A76336F72E8519900034222E /* EZCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = A76336F62E8519900034222E /* EZCalendar */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		A7F2373F2D33B30700682D21 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				A7F2373E2D33B30700682D21 /* EZCalendar.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A75AE8BD2D33B2A40052BADA /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,7 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7F2373D2D33B30700682D21 /* EZCalendar.framework in Frameworks */,
+				A76336F72E8519900034222E /* EZCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +70,6 @@
 				A75AE8B92D33B2A40052BADA /* Sources */,
 				A75AE8BA2D33B2A40052BADA /* Frameworks */,
 				A75AE8BB2D33B2A40052BADA /* Resources */,
-				A7F2373F2D33B30700682D21 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -96,6 +80,7 @@
 			);
 			name = Demo;
 			packageProductDependencies = (
+				A76336F62E8519900034222E /* EZCalendar */,
 			);
 			productName = Demo;
 			productReference = A75AE8BD2D33B2A40052BADA /* Demo.app */;
@@ -125,6 +110,9 @@
 			);
 			mainGroup = A75AE8B42D33B2A40052BADA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				A76336F52E8519900034222E /* XCLocalSwiftPackageReference "../../EZCalendar-Swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A75AE8BE2D33B2A40052BADA /* Products */;
 			projectDirPath = "";
@@ -366,6 +354,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A76336F52E8519900034222E /* XCLocalSwiftPackageReference "../../EZCalendar-Swift" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../EZCalendar-Swift";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A76336F62E8519900034222E /* EZCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = EZCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A75AE8B52D33B2A40052BADA /* Project object */;
 }
