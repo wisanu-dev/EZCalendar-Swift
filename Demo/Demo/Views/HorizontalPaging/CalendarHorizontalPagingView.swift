@@ -55,13 +55,10 @@ struct CalendarHorizontalPagingView: View {
                     .padding(16)
                     
                     EZCalendarHorizontalPagingView(
-                        currentMonth: $viewModel.currentMonth,
-                        viewModel: StateObject(
-                            wrappedValue: EZCalendarHorizontalPagingViewModel(
-                                viewModel.calendar,
-                                startDate: viewModel.startDate,
-                                endDate: viewModel.endDate
-                            )
+                        viewModel: EZCalendarHorizontalPagingViewModel(
+                            calendar: viewModel.calendar,
+                            currentMonth: $viewModel.currentMonth,
+                            calendarMonths: $viewModel.calendarMonths
                         )
                     ) { weekdayTitle in
                         Text(weekdayTitle)
@@ -79,6 +76,8 @@ struct CalendarHorizontalPagingView: View {
                                 ? Color.black
                                 : Color.gray
                             )
+                            .padding(4)
+                            .background(calendarDay.hasEvents ? Color.blue : Color.clear)
                             .frame(
                                 width: proxy.size.width / 7,
                                 height: proxy.size.width / 7
@@ -87,6 +86,9 @@ struct CalendarHorizontalPagingView: View {
                     .weekdayScrollable(true)
                 }
             }
+        }
+        .onChange(of: viewModel.currentMonth) { _, monthDate in
+            viewModel.updateEvents(monthDate)
         }
     }
 }

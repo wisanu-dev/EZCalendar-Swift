@@ -17,10 +17,10 @@ public struct CalendarWeek: Hashable {
     }
     
     public static func == (lhs: CalendarWeek, rhs: CalendarWeek) -> Bool {
-        lhs.uuid == rhs.uuid
+        lhs.uuid == rhs.uuid && lhs.calendarDays == rhs.calendarDays
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(uuid)
+        hasher.combine("\(uuid)\(calendarDays)")
     }
 }

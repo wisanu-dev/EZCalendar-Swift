@@ -6,17 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
 
 class EZCalendarItemViewModel: ObservableObject {
     
     var calendar: Calendar
-    var calendarMonth: CalendarMonth
-    var calendarWeeks: [CalendarWeek] = []
+    @Published var calendarMonth: CalendarMonth
+    @Published var calendarWeeks: [CalendarWeek] = []
     
     init(calendarMonth: CalendarMonth, calendar: Calendar) {
         self.calendarMonth = calendarMonth
         self.calendar = calendar
         self.calendarWeeks = self.generateCalendar()
+//        debugPrint("init \(calendarMonth.wrappedValue.month) \(calendarMonth.wrappedValue.year)")
     }
     
     private func generateCalendar() -> [CalendarWeek] {
@@ -87,8 +89,12 @@ class EZCalendarItemViewModel: ObservableObject {
     }
     
     private func buildCalendarDayInCurrentMonth(_ dayOfMonth: Int) -> CalendarDay {
-        CalendarDay(
-            date: Date.from(year: self.calendarMonth.year, month: self.calendarMonth.month, day: dayOfMonth, calendar: calendar)
+        
+        let date = Date.from(year: self.calendarMonth.year, month: self.calendarMonth.month, day: dayOfMonth, calendar: calendar)
+        
+        return CalendarDay(
+            date: date,
+            hasEvents: hasEvents(from: date)
         )
     }
     
@@ -113,6 +119,10 @@ class EZCalendarItemViewModel: ObservableObject {
             date: dateOfNextMonth,
             isCurrentMonth: false
         )
+    }
+    
+    private func hasEvents(from date: Date?) -> Bool {
+        calendarMonth.events.contains(where: { $0.eventDate == date })
     }
 }
 
