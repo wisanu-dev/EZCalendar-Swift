@@ -11,43 +11,18 @@ import Combine
 public class EZCalendarHorizontalPagingViewModel: ObservableObject {
     
     var calendar: Calendar
-    var startDate: Date
-    var endDate: Date
-    var calendarMonths: [CalendarMonth] = []
     
-    public init(_ calendar: Calendar, startDate: Date, endDate: Date) {
+    @Published var activeCalendarMonthUUID: String? = nil
+    @Binding public var currentMonth: Date
+    @Binding public var calendarMonths: [CalendarMonth]
+    
+    public init(calendar: Calendar = .current, activeCalendarMonthUUID: String? = nil, currentMonth: Binding<Date>, calendarMonths: Binding<[CalendarMonth]>) {
         self.calendar = calendar
-        self.startDate = startDate
-        self.endDate = endDate
-        self.generateCalendarMonths()
-        debugPrint("init CalendarPagingViewModel")
+        self.activeCalendarMonthUUID = activeCalendarMonthUUID
+        self._currentMonth = currentMonth
+        self._calendarMonths = calendarMonths
     }
-    
-    private func generateCalendarMonths() {
-        self.calendarMonths = []
-        
-        var currentFirstDateOfMonth = startDate.startOfMonth
-        
-        while currentFirstDateOfMonth <= endDate {
-            
-            let calendarComponents = calendar.dateComponents([.month, .year], from: currentFirstDateOfMonth)
-            
-            guard let year = calendarComponents.year, let month = calendarComponents.month else {
-                break
-            }
-            
-            self.calendarMonths.append(
-                CalendarMonth(month: month, year: year)
-            )
-            
-            guard let nextFirstDateOfMonth = currentFirstDateOfMonth.addingComponentsOfDate(month: 1) else {
-                break
-            }
-            
-            currentFirstDateOfMonth = nextFirstDateOfMonth
-        }
-    }
-    
+
     func getCalendarMonth(fromDate date: Date) -> CalendarMonth? {
         let components = calendar.dateComponents([.month, .year], from: date)
         
