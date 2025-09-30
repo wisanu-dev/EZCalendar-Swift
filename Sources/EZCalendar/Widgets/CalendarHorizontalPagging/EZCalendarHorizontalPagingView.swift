@@ -10,16 +10,24 @@ import SwiftUI
 public struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
 where WeekdayItemView: View, DayItemView: View {
     
-    @ObservedObject public var viewModel: EZCalendarHorizontalPagingViewModel
+    var calendar: Calendar
+    @State var activeCalendarMonthUUID: String? = nil
+    @Binding public var currentMonth: Date
+    @Binding public var calendarMonths: [CalendarMonth]
+    
     public var weekdayItemViewContent: (String) -> WeekdayItemView
     public var dayItemViewContent: (CalendarDay) -> DayItemView
     
     public init(
-        viewModel: EZCalendarHorizontalPagingViewModel,
+        withCalendar calendar: Calendar,
+        currentMonth: Binding<Date>,
+        calendarMonths: Binding<[CalendarMonth]>,
         @ViewBuilder weekdayItemViewContent: @escaping (String) -> WeekdayItemView,
         @ViewBuilder dayItemViewContent: @escaping (CalendarDay) -> DayItemView
     ) {
-        self.viewModel = viewModel
+        self.calendar = calendar
+        self._currentMonth = currentMonth
+        self._calendarMonths = calendarMonths
         self.weekdayItemViewContent = weekdayItemViewContent
         self.dayItemViewContent = dayItemViewContent
     }
@@ -51,7 +59,7 @@ where WeekdayItemView: View, DayItemView: View {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 0) {
                     Group {
-                        ForEach(viewModel.calendarMonths, id: \.hashString) { calendarMonth in
+                        ForEach(calendarMonths, id: \.hashString) { calendarMonth in
                             VStack(spacing: 0) {
                                 
                                 if isWeekdayScrollable {
@@ -60,7 +68,7 @@ where WeekdayItemView: View, DayItemView: View {
                                 
                                 EZCalendarItemView(
                                     calendarMonth,
-                                    calendar: viewModel.calendar,
+                                    calendar: calendar,
                                     dayItemViewContent: dayItemViewContent
                                 )
                                 .gridLineColor(self.gridLineColor)
@@ -73,33 +81,55 @@ where WeekdayItemView: View, DayItemView: View {
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
-            .scrollPosition(id: $viewModel.activeCalendarMonthUUID)
+            .scrollPosition(id: $activeCalendarMonthUUID)
             .scrollIndicators(.never)
         }
-        .onChange(of: viewModel.activeCalendarMonthUUID) { _, activeCalendarMonthUUID in
+        .onChange(of: activeCalendarMonthUUID) { _, activeCalendarMonthUUID in
             DispatchQueue.main.async {
-                guard let currentMonth = viewModel.getCurrentMonth(fromUUID: activeCalendarMonthUUID) else {
+                guard let currentMonth = getCurrentMonth(fromUUID: activeCalendarMonthUUID) else {
                     return
                 }
                 
-                self.viewModel.currentMonth = currentMonth
+                self.currentMonth = currentMonth
             }
         }
-        .onChange(of: viewModel.currentMonth) { _, newValue in
-            guard let currentMonth = viewModel.getCurrentMonth(fromUUID: viewModel.activeCalendarMonthUUID) else {
+        .onChange(of: currentMonth) { _, newValue in
+            guard let currentMonth = getCurrentMonth(fromUUID: activeCalendarMonthUUID) else {
                 return
             }
             
-            guard currentMonth != newValue, let calendarMonth = viewModel.getCalendarMonth(fromDate: newValue) else {
+            guard currentMonth != newValue, let calendarMonth = getCalendarMonth(fromDate: newValue) else {
                 return
             }
             
             withAnimation {
-                viewModel.activeCalendarMonthUUID = calendarMonth.uuid
+                activeCalendarMonthUUID = calendarMonth.uuid
             }
         }
         .onAppear{
-            viewModel.activeCalendarMonthUUID = viewModel.getCalendarMonth(fromDate: viewModel.currentMonth)?.uuid
+            activeCalendarMonthUUID = getCalendarMonth(fromDate: currentMonth)?.uuid
         }
+    }
+    
+    func getCalendarMonth(fromDate date: Date) -> CalendarMonth? {
+        let components = calendar.dateComponents([.month, .year], from: date)
+        
+        guard let calendarMonth = self.calendarMonths.first(where: {
+            $0.year == components.year && $0.month == components.month
+        }) else {
+            return nil
+        }
+        
+        return calendarMonth
+    }
+    
+    func getCurrentMonth(fromUUID uuid: String?) -> Date? {
+        
+        guard let calendarMonth = calendarMonths.first(where: { $0.uuid == uuid }) else {
+            return nil
+        }
+        
+        
+        return Date.from(year: calendarMonth.year, month: calendarMonth.month, day: 1, calendar: calendar)
     }
 }

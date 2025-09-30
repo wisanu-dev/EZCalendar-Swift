@@ -18,7 +18,6 @@ class EZCalendarItemViewModel: ObservableObject {
         self.calendarMonth = calendarMonth
         self.calendar = calendar
         self.calendarWeeks = self.generateCalendar()
-//        debugPrint("init \(calendarMonth.wrappedValue.month) \(calendarMonth.wrappedValue.year)")
     }
     
     private func generateCalendar() -> [CalendarWeek] {

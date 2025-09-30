@@ -55,11 +55,9 @@ struct CalendarHorizontalPagingView: View {
                     .padding(16)
                     
                     EZCalendarHorizontalPagingView(
-                        viewModel: EZCalendarHorizontalPagingViewModel(
-                            calendar: viewModel.calendar,
-                            currentMonth: $viewModel.currentMonth,
-                            calendarMonths: $viewModel.calendarMonths
-                        )
+                        withCalendar: viewModel.calendar,
+                        currentMonth: $viewModel.currentMonth,
+                        calendarMonths: $viewModel.calendarMonths
                     ) { weekdayTitle in
                         Text(weekdayTitle)
                             .foregroundStyle(Color.red)
