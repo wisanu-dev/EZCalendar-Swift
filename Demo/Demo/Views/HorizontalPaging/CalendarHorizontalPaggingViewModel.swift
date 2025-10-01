@@ -54,7 +54,7 @@ class CalendarHorizontalPaggingViewModel: ObservableObject {
             let calendarMonth = calendarMonths[index]
             
             let events = getEvent(month: calendarMonth.month, year: calendarMonth.year)
-            calendarMonths[index] = CalendarMonth(month: calendarMonth.month, year: calendarMonth.year, events: events)
+            calendarMonths[index] = CalendarMonth(uuid: calendarMonth.uuid, month: calendarMonth.month, year: calendarMonth.year, events: events)
         }
     }
     

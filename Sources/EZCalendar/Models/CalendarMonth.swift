@@ -9,16 +9,17 @@ import Foundation
 
 public struct CalendarMonth: Hashable {
     
-    public let uuid = UUID().uuidString
+    public let uuid: String
     public let month: Int
     public let year: Int
-    public var events: [CalendarEvent]
+    public let events: [CalendarEvent]
     
     var hashString: String {
         "\(uuid)\(events.count)"
     }
 
-    public init(month: Int, year: Int, events: [CalendarEvent] = []) {
+    public init(uuid: String = UUID().uuidString, month: Int, year: Int, events: [CalendarEvent] = []) {
+        self.uuid = uuid
         self.month = month
         self.year = year
         self.events = events
