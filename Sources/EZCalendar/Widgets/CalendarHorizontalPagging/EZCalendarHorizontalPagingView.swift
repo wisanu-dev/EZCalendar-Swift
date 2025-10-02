@@ -59,7 +59,7 @@ where WeekdayItemView: View, DayItemView: View {
             ScrollView(.horizontal) {
                 LazyHStack(alignment: .top, spacing: 0) {
                     Group {
-                        ForEach(calendarMonths, id: \.hashString) { calendarMonth in
+                        ForEach(calendarMonths, id: \.self) { calendarMonth in
                             VStack(spacing: 0) {
                                 
                                 if isWeekdayScrollable {
@@ -73,7 +73,7 @@ where WeekdayItemView: View, DayItemView: View {
                                 )
                                 .gridLineColor(self.gridLineColor)
                             }
-                            .id(calendarMonth.uuid)
+                            .id("\(calendarMonth.hashValue)")
                         }
                     }
                     .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
@@ -103,11 +103,11 @@ where WeekdayItemView: View, DayItemView: View {
             }
             
             withAnimation {
-                activeCalendarMonthUUID = calendarMonth.uuid
+                activeCalendarMonthUUID = "\(calendarMonth.hashValue)"
             }
         }
         .onAppear{
-            activeCalendarMonthUUID = getCalendarMonth(fromDate: currentMonth)?.uuid
+            activeCalendarMonthUUID = "\(getCalendarMonth(fromDate: currentMonth)?.hashValue ?? 0)"
         }
     }
     
@@ -125,7 +125,7 @@ where WeekdayItemView: View, DayItemView: View {
     
     func getCurrentMonth(fromUUID uuid: String?) -> Date? {
         
-        guard let calendarMonth = calendarMonths.first(where: { $0.uuid == uuid }) else {
+        guard let calendarMonth = calendarMonths.first(where: { "\($0.hashValue)" == uuid }) else {
             return nil
         }
         
