@@ -11,7 +11,7 @@ public struct EZCalendarHorizontalPagingView<WeekdayItemView, DayItemView>: View
 where WeekdayItemView: View, DayItemView: View {
     
     var calendar: Calendar
-    @State var activeCalendarMonthUUID: String? = nil
+    @State var activeCalendarMonthHash: String? = nil
     @Binding public var currentMonth: Date
     @Binding public var calendarMonths: [CalendarMonth]
     
@@ -73,7 +73,7 @@ where WeekdayItemView: View, DayItemView: View {
                                 )
                                 .gridLineColor(self.gridLineColor)
                             }
-                            .id("\(calendarMonth.hashValue)")
+                            .id(calendarMonth.hashString)
                         }
                     }
                     .containerRelativeFrame(.horizontal, count: 1, spacing: 0)
@@ -81,12 +81,12 @@ where WeekdayItemView: View, DayItemView: View {
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
-            .scrollPosition(id: $activeCalendarMonthUUID)
+            .scrollPosition(id: $activeCalendarMonthHash)
             .scrollIndicators(.never)
         }
-        .onChange(of: activeCalendarMonthUUID) { _, activeCalendarMonthUUID in
+        .onChange(of: activeCalendarMonthHash) { _, activeCalendarMonthHash in
             DispatchQueue.main.async {
-                guard let currentMonth = getCurrentMonth(fromUUID: activeCalendarMonthUUID) else {
+                guard let currentMonth = getCurrentMonth(fromUUID: activeCalendarMonthHash) else {
                     return
                 }
                 
@@ -99,11 +99,11 @@ where WeekdayItemView: View, DayItemView: View {
             }
             
             withAnimation {
-                activeCalendarMonthUUID = "\(calendarMonth.hashValue)"
+                activeCalendarMonthHash = calendarMonth.hashString
             }
         }
         .onAppear{
-            activeCalendarMonthUUID = "\(getCalendarMonth(fromDate: currentMonth)?.hashValue ?? 0)"
+            activeCalendarMonthHash = "\(getCalendarMonth(fromDate: currentMonth)?.hashValue ?? 0)"
         }
     }
     
@@ -121,7 +121,7 @@ where WeekdayItemView: View, DayItemView: View {
     
     func getCurrentMonth(fromUUID uuid: String?) -> Date? {
         
-        guard let calendarMonth = calendarMonths.first(where: { "\($0.hashValue)" == uuid }) else {
+        guard let calendarMonth = calendarMonths.first(where: { $0.hashString == uuid }) else {
             return nil
         }
         
