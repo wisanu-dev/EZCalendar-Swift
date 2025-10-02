@@ -94,11 +94,7 @@ where WeekdayItemView: View, DayItemView: View {
             }
         }
         .onChange(of: currentMonth) { _, newValue in
-            guard let currentMonth = getCurrentMonth(fromUUID: activeCalendarMonthUUID) else {
-                return
-            }
-            
-            guard currentMonth != newValue, let calendarMonth = getCalendarMonth(fromDate: newValue) else {
+            guard let calendarMonth = getCalendarMonth(fromDate: newValue) else {
                 return
             }
             
